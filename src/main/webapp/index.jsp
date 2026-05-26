@@ -13,6 +13,8 @@
         .card { border: 1px solid #ccc; padding: 15px; width: 230px; border-radius: 6px; }
         .card img { width: 100%; height: 130px; object-fit: cover; margin-bottom: 10px; }
         .preco { font-weight: bold; }
+        .acoes a { text-decoration: none; color: #007bff; margin-right: 10px; }
+        .acoes a.excluir { color: red; }
     </style>
 </head>
 <body>
@@ -44,6 +46,12 @@
         <h3><%= j.getTitulo() %></h3>
         <p><%= j.getDescricao() %></p>
         <p class="preco">R$ <%= j.getPreco() %></p>
+
+        <div class="acoes">
+            <br>
+            <a href="<%= request.getContextPath() %>/jogos/editar?id=<%= j.getId() %>">Editar</a>
+            <a href="<%= request.getContextPath() %>/jogos/deletar?id=<%= j.getId() %>" class="excluir" onclick="return confirm('Tem certeza que deseja excluir este jogo?');">Excluir</a>
+        </div>
     </div>
     <%
         }
