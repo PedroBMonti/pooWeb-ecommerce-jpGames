@@ -25,6 +25,10 @@
 <br>
 <a href="<%= request.getContextPath() %>/jogos" class="btn-cadastro">Cadastrar Novo Jogo</a>
 
+<a href="<%= request.getContextPath() %>/categorias" class="btn-cadastro" style="background-color: #28a745;">
+    Gerenciar Categorias
+</a>
+
 <h2>Jogos Disponíveis</h2>
 
 <div class="jogos">
