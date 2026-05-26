@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Categoria" %>
+
 <html>
 <head>
     <title>Cadastrar Jogo</title>
@@ -6,21 +9,33 @@
 <body>
 <h2>Cadastro de Novo Jogo</h2>
 
-<form action="salvarJogo" method="POST">
+<form action="${pageContext.request.contextPath}/jogos/salvar" method="post">
     <input type="text" name="titulo" placeholder="Título do Jogo" required><br><br>
+
     <textarea name="descricao" placeholder="Descrição"></textarea><br><br>
+
     <input type="number" step="0.01" name="preco" placeholder="Preço" required><br><br>
 
-    <select name="categoriaId">
-        <option value="1">Ação</option>
-        <option value="2">RPG</option>
-        <option value="3">Esportes</option>
-        <option value="4">FPS</option>
+    <select name="categoriaId" required>
+        <option value="">Selecione uma categoria</option>
+        <%
+            List<Categoria> categorias = (List<Categoria>) request.getAttribute("categorias");
+            if (categorias != null) {
+                for (Categoria c : categorias) {
+        %>
+        <option value="<%= c.getId() %>"><%= c.getNome() %></option>
+        <%
+                }
+            }
+        %>
     </select><br><br>
 
     <input type="text" name="urlImagem" placeholder="URL da Imagem"><br><br>
 
     <button type="submit">Salvar Jogo</button>
 </form>
+
+<br>
+<a href="<%= request.getContextPath() %>/index.jsp">Voltar para início</a>
 </body>
 </html>
