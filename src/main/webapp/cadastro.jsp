@@ -36,6 +36,6 @@
 </form>
 
 <br>
-<a href="<%= request.getContextPath() %>/index.jsp">Voltar para início</a>
+<a href="<%= request.getContextPath() %>/home">Voltar para início</a>
 </body>
 </html>
