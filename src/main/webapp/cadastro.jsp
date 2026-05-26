@@ -9,7 +9,7 @@
 <body>
 <h2>Cadastro de Novo Jogo</h2>
 
-<form action="${pageContext.request.contextPath}/jogos/salvar" method="post">
+<form action="<%= request.getContextPath() %>/jogos/salvar" method="post">
     <input type="text" name="titulo" placeholder="Título do Jogo" required><br><br>
 
     <textarea name="descricao" placeholder="Descrição"></textarea><br><br>

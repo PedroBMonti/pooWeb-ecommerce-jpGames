@@ -21,11 +21,11 @@ public class JogoController {
     }
 
     @PostMapping("/salvar")
-    public String salvarJogo(@RequestParam String titulo,
-                             @RequestParam String descricao,
-                             @RequestParam double preco,
-                             @RequestParam int categoriaId,
-                             @RequestParam String urlImagem) {
+    public String salvarJogo(@RequestParam("titulo") String titulo,
+                             @RequestParam("descricao") String descricao,
+                             @RequestParam("preco") double preco,
+                             @RequestParam("categoriaId") int categoriaId,
+                             @RequestParam("urlImagem") String urlImagem) {
 
         Jogo novoJogo = new Jogo(0, titulo, descricao, preco, categoriaId, urlImagem);
         jogoDAO.cadastrar(novoJogo);

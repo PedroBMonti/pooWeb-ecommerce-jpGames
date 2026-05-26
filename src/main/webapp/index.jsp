@@ -14,7 +14,7 @@
 <p>A tua loja de confiança para os melhores títulos.</p>
 
 <br>
-<a href="cadastro.jsp" class="btn-cadastro">Cadastrar Novo Jogo</a>
+<a href="<%= request.getContextPath() %>/jogos" class="btn-cadastro">Cadastrar Novo Jogo</a>
 
 </body>
 </html>
