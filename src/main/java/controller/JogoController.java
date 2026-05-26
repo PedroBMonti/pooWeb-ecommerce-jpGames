@@ -17,6 +17,7 @@ public class JogoController {
     @GetMapping
     public String abrirCadastro(Model model) {
         model.addAttribute("categorias", categoriaDAO.listarTodas());
+        model.addAttribute("jogos", jogoDAO.listarTodos());
         return "cadastro";
     }
 
