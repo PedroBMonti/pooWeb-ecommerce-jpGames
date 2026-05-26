@@ -1,27 +1,35 @@
 package controller;
 
+import dao.CategoriaDAO;
 import dao.JogoDAO;
 import model.Jogo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/jogos")
 public class JogoController {
 
     private JogoDAO jogoDAO = new JogoDAO();
+    private CategoriaDAO categoriaDAO = new CategoriaDAO();
 
-    @PostMapping("/salvarJogo")
-    public String salvarJogo(
-            @RequestParam String titulo,
-            @RequestParam String descricao,
-            @RequestParam double preco,
-            @RequestParam int categoriaId,
-            @RequestParam String urlImagem) {
+    @GetMapping
+    public String abrirCadastro(Model model) {
+        model.addAttribute("categorias", categoriaDAO.listarTodas());
+        return "cadastro";
+    }
+
+    @PostMapping("/salvar")
+    public String salvarJogo(@RequestParam String titulo,
+                             @RequestParam String descricao,
+                             @RequestParam double preco,
+                             @RequestParam int categoriaId,
+                             @RequestParam String urlImagem) {
 
         Jogo novoJogo = new Jogo(0, titulo, descricao, preco, categoriaId, urlImagem);
         jogoDAO.cadastrar(novoJogo);
 
-        return "redirect:/index.jsp?sucesso=true";
+        return "redirect:/jogos";
     }
 }
