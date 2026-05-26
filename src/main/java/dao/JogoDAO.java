@@ -59,4 +59,58 @@ public class JogoDAO {
 
         return jogos;
     }
+
+    public Jogo buscarPorId(int id) {
+        String sql = "SELECT * FROM jogo WHERE id = ?";
+
+        try (Connection conn = ConexaoDB.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return map(rs);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar jogo: " + e.getMessage(), e);
+        }
+
+        return null;
+    }
+
+    public void atualizar(Jogo jogo) {
+        String sql = "UPDATE jogo SET titulo = ?, descricao = ?, preco = ?, categoria_id = ?, url_imagem = ? WHERE id = ?";
+
+        try (Connection conn = ConexaoDB.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, jogo.getTitulo());
+            stmt.setString(2, jogo.getDescricao());
+            stmt.setDouble(3, jogo.getPreco());
+            stmt.setInt(4, jogo.getCategoriaId());
+            stmt.setString(5, jogo.getUrlImagem());
+            stmt.setInt(6, jogo.getId());
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar jogo: " + e.getMessage(), e);
+        }
+    }
+
+    public void deletar(int id) {
+        String sql = "DELETE FROM jogo WHERE id = ?";
+
+        try (Connection conn = ConexaoDB.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao deletar jogo: " + e.getMessage(), e);
+        }
+    }
 }
