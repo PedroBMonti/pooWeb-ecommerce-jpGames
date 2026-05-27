@@ -2,29 +2,41 @@ package controller;
 
 import dao.CategoriaDAO;
 import dao.JogoDAO;
+import jakarta.servlet.http.HttpSession;
 import model.Jogo;
+import model.Usuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/jogos")
 public class JogoController {
 
     private JogoDAO jogoDAO = new JogoDAO();
-    private CategoriaDAO categoriaDAO = new CategoriaDAO(); // Confirma se tens este DAO criado
+    private CategoriaDAO categoriaDAO = new CategoriaDAO();
+
+    private boolean isAdmin(HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        return usuario != null && "admin".equals(usuario.getPerfil());
+    }
 
     @GetMapping
-    public String abrirCadastro(Model model) {
+    public String abrirCadastro(Model model, HttpSession session) {
+        if (!isAdmin(session)) {
+            return "redirect:/login";
+        }
+
         model.addAttribute("categorias", categoriaDAO.listarTodas());
         return "cadastro";
     }
 
     @GetMapping("/editar")
-    public String editar(@RequestParam("id") int id, Model model) {
+    public String editar(@RequestParam("id") int id, Model model, HttpSession session) {
+        if (!isAdmin(session)) {
+            return "redirect:/login";
+        }
+
         Jogo jogo = jogoDAO.buscarPorId(id);
 
         model.addAttribute("jogo", jogo);
@@ -34,7 +46,11 @@ public class JogoController {
     }
 
     @GetMapping("/deletar")
-    public String deletar(@RequestParam("id") int id) {
+    public String deletar(@RequestParam("id") int id, HttpSession session) {
+        if (!isAdmin(session)) {
+            return "redirect:/login";
+        }
+
         jogoDAO.deletar(id);
         return "redirect:/home";
     }
@@ -45,7 +61,12 @@ public class JogoController {
                              @RequestParam("descricao") String descricao,
                              @RequestParam("preco") double preco,
                              @RequestParam("categoriaId") int categoriaId,
-                             @RequestParam("urlImagem") String urlImagem) {
+                             @RequestParam("urlImagem") String urlImagem,
+                             HttpSession session) {
+
+        if (!isAdmin(session)) {
+            return "redirect:/login";
+        }
 
         Jogo jogo = new Jogo(id, titulo, descricao, preco, categoriaId, urlImagem);
 
