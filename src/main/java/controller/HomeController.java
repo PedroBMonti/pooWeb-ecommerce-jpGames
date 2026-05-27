@@ -17,8 +17,6 @@ public class HomeController {
     public String index(Model model) {
         List<Jogo> jogos = jogoDAO.listarTodos();
 
-        System.out.println("Jogos encontrados na home: " + jogos.size());
-
         model.addAttribute("jogos", jogos);
         return "index";
     }
