@@ -3,23 +3,47 @@
 <html>
 <head>
   <title>Checkout - JpGames</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 40px; }
-    .box { border: 1px solid #ccc; padding: 20px; width: 400px; border-radius: 6px; }
-    .btn { background-color: #007bff; color: white; padding: 8px 12px; text-decoration: none; border-radius: 5px; }
-  </style>
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
 
-<h1>Compra Finalizada</h1>
+<div class="header">
+  <a href="<%= request.getContextPath() %>/home" class="logo">JpGames</a>
 
-<div class="box">
-  <p>Pedido processado com sucesso.</p>
-  <p>Total da compra: R$ <%= request.getAttribute("total") %></p>
+  <div class="nav">
+    <a href="<%= request.getContextPath() %>/home">Loja</a>
+    <a href="<%= request.getContextPath() %>/carrinho">Carrinho</a>
+  </div>
 </div>
 
-<br>
-<a href="<%= request.getContextPath() %>/home" class="btn">Voltar para a loja</a>
+<div class="container">
+
+  <div class="hero">
+    <h1>Compra Finalizada</h1>
+    <p>Obrigado por comprar na JpGames. O teu pedido foi processado com sucesso.</p>
+  </div>
+
+  <div class="checkout-box">
+    <h2 class="section-title">Resumo da Compra</h2>
+
+    <p>Pedido confirmado e carrinho finalizado.</p>
+
+    <p class="checkout-total">
+      Total da compra: R$ <%= request.getAttribute("total") %>
+    </p>
+
+    <div class="cart-actions">
+      <a href="<%= request.getContextPath() %>/home" class="btn-cadastro btn-carrinho">
+        Voltar para a loja
+      </a>
+
+      <a href="<%= request.getContextPath() %>/carrinho" class="btn-cadastro btn-admin">
+        Ver Carrinho
+      </a>
+    </div>
+  </div>
+
+</div>
 
 </body>
 </html>
