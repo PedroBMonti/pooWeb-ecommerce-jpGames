@@ -9,54 +9,79 @@
 
 <html>
 <head>
-    <title><%= jogoEdicao != null ? "Editar Jogo" : "Cadastrar Novo Jogo" %></title>
+    <title><%= jogoEdicao != null ? "Editar Jogo" : "Cadastrar Novo Jogo" %> - JpGames</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
 
-<h2><%= jogoEdicao != null ? "Editar Jogo" : "Cadastro de Novo Jogo" %></h2>
+<div class="header">
+    <a href="<%= request.getContextPath() %>/home" class="logo">JpGames</a>
 
-<form action="<%= request.getContextPath() %>/jogos/salvar" method="post">
+    <div class="nav">
+        <a href="<%= request.getContextPath() %>/home">Loja</a>
+        <a href="<%= request.getContextPath() %>/carrinho">Carrinho</a>
+        <a href="<%= request.getContextPath() %>/categorias">Categorias</a>
+    </div>
+</div>
 
-    <input type="hidden" name="id" value="<%= jogoEdicao != null ? jogoEdicao.getId() : 0 %>">
+<div class="container">
 
-    <label>Título:</label><br>
-    <input type="text" name="titulo" placeholder="Título do Jogo"
-           value="<%= jogoEdicao != null ? jogoEdicao.getTitulo() : "" %>" required><br><br>
+    <div class="hero">
+        <h1><%= jogoEdicao != null ? "Editar Jogo" : "Cadastrar Novo Jogo" %></h1>
+        <p>Gerencie as informações do catálogo da JpGames.</p>
+    </div>
 
-    <label>Descrição:</label><br>
-    <textarea name="descricao" placeholder="Descrição do Jogo" rows="4" cols="30"><%= jogoEdicao != null ? jogoEdicao.getDescricao() : "" %></textarea><br><br>
+    <div class="form-card form-large">
+        <form action="<%= request.getContextPath() %>/jogos/salvar" method="post">
 
-    <label>Preço:</label><br>
-    <input type="number" step="0.01" name="preco" placeholder="Preço"
-           value="<%= jogoEdicao != null ? jogoEdicao.getPreco() : "" %>" required><br><br>
+            <input type="hidden" name="id" value="<%= jogoEdicao != null ? jogoEdicao.getId() : 0 %>">
 
-    <label>URL da Imagem:</label><br>
-    <input type="text" name="urlImagem" placeholder="Ex: img/nome.png"
-           value="<%= jogoEdicao != null ? jogoEdicao.getUrlImagem() : "" %>" required><br><br>
+            <label>Título</label>
+            <input type="text" name="titulo" placeholder="Título do jogo"
+                   value="<%= jogoEdicao != null ? jogoEdicao.getTitulo() : "" %>" required>
 
-    <label>Categoria:</label><br>
-    <select name="categoriaId" required>
-        <option value="">Selecione uma categoria</option>
-        <%
-            List<Categoria> categorias = (List<Categoria>) request.getAttribute("categorias");
-            if (categorias != null) {
-                for (Categoria c : categorias) {
-                    boolean selecionado = jogoEdicao != null && jogoEdicao.getCategoriaId() == c.getId();
-        %>
-        <option value="<%= c.getId() %>" <%= selecionado ? "selected" : "" %>>
-            <%= c.getNome() %>
-        </option>
-        <%
-                }
-            }
-        %>
-    </select><br><br>
+            <label>Descrição</label>
+            <textarea name="descricao" placeholder="Descrição do jogo" rows="5" required><%= jogoEdicao != null ? jogoEdicao.getDescricao() : "" %></textarea>
 
-    <button type="submit"><%= jogoEdicao != null ? "Atualizar Jogo" : "Salvar Jogo" %></button>
-</form>
+            <label>Preço</label>
+            <input type="number" step="0.01" name="preco" placeholder="Preço"
+                   value="<%= jogoEdicao != null ? jogoEdicao.getPreco() : "" %>" required>
 
-<br>
-<a href="<%= request.getContextPath() %>/home">Voltar para a Página Inicial</a>
+            <label>URL da Imagem</label>
+            <input type="text" name="urlImagem" placeholder="Ex: img/nome.png"
+                   value="<%= jogoEdicao != null ? jogoEdicao.getUrlImagem() : "" %>" required>
+
+            <label>Categoria</label>
+            <select name="categoriaId" required>
+                <option value="">Selecione uma categoria</option>
+                <%
+                    List<Categoria> categorias = (List<Categoria>) request.getAttribute("categorias");
+                    if (categorias != null) {
+                        for (Categoria c : categorias) {
+                            boolean selecionado = jogoEdicao != null && jogoEdicao.getCategoriaId() == c.getId();
+                %>
+                <option value="<%= c.getId() %>" <%= selecionado ? "selected" : "" %>>
+                    <%= c.getNome() %>
+                </option>
+                <%
+                        }
+                    }
+                %>
+            </select>
+
+            <div class="cart-actions">
+                <button type="submit" class="btn-cadastro btn-comprar">
+                    <%= jogoEdicao != null ? "Atualizar Jogo" : "Salvar Jogo" %>
+                </button>
+
+                <a href="<%= request.getContextPath() %>/home" class="btn-cadastro btn-carrinho">
+                    Voltar para a loja
+                </a>
+            </div>
+        </form>
+    </div>
+
+</div>
 
 </body>
 </html>
