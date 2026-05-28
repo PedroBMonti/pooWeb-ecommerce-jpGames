@@ -28,7 +28,7 @@
 
         <form action="<%= request.getContextPath() %>/login" method="post">
             <label>Email</label>
-            <input type="email" name="email" placeholder="admin@jpgames.com" required>
+            <input type="email" name="email" placeholder="ex:ad...@jpgames.com" required>
 
             <label>Senha</label>
             <input type="password" name="senha" placeholder="Digite sua senha" required>
