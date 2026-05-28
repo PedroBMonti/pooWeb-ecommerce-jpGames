@@ -327,3 +327,16 @@ body {
     color: #ff6961;
     margin-top: 12px;
 }
+
+.form-large {
+    max-width: 720px;
+}
+
+.form-card textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-card button {
+    margin-top: 8px;
+}
