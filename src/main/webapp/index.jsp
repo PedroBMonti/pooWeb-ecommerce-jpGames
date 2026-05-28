@@ -19,7 +19,6 @@
     <a href="<%= request.getContextPath() %>/home" class="logo">JpGames</a>
 
     <div class="nav">
-        <a href="<%= request.getContextPath() %>/home">Loja</a>
         <a href="<%= request.getContextPath() %>/carrinho">Carrinho</a>
 
         <% if (usuarioLogado != null) { %>
@@ -60,19 +59,24 @@
                 for (Jogo j : jogos) {
         %>
         <div class="card">
-            <%
-                if (j.getUrlImagem() != null && !j.getUrlImagem().isEmpty()) {
-            %>
-            <img src="<%= request.getContextPath() %>/<%= j.getUrlImagem() %>" alt="<%= j.getTitulo() %>">
-            <%
-                }
-            %>
+
+            <a href="<%= request.getContextPath() %>/jogos/detalhes?id=<%= j.getId() %>" class="card-link">
+                <%
+                    if (j.getUrlImagem() != null && !j.getUrlImagem().isEmpty()) {
+                %>
+                <img src="<%= request.getContextPath() %>/<%= j.getUrlImagem() %>" alt="<%= j.getTitulo() %>">
+                <%
+                    }
+                %>
+
+                <div class="card-content">
+                    <h3><%= j.getTitulo() %></h3>
+                    <p><%= j.getDescricao() %></p>
+                    <p class="preco">R$ <%= j.getPreco() %></p>
+                </div>
+            </a>
 
             <div class="card-content">
-                <h3><%= j.getTitulo() %></h3>
-                <p><%= j.getDescricao() %></p>
-                <p class="preco">R$ <%= j.getPreco() %></p>
-
                 <a href="<%= request.getContextPath() %>/carrinho/adicionar?id=<%= j.getId() %>" class="btn-cadastro btn-comprar">
                     Adicionar ao Carrinho
                 </a>
@@ -84,6 +88,7 @@
                 </div>
                 <% } %>
             </div>
+
         </div>
         <%
             }
