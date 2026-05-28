@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.Usuario" %>
 <%@ page import="model.Jogo" %>
@@ -10,6 +10,7 @@
 
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Minha Conta - JpGames</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
