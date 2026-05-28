@@ -1,8 +1,10 @@
 package controller;
 
+import dao.BibliotecaDAO;
 import dao.JogoDAO;
 import jakarta.servlet.http.HttpSession;
 import model.Jogo;
+import model.Usuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import java.util.List;
 public class CarrinhoController {
 
     private JogoDAO jogoDAO = new JogoDAO();
+    private BibliotecaDAO bibliotecaDAO = new BibliotecaDAO();
 
     @GetMapping
     public String verCarrinho(HttpSession session, Model model) {
@@ -66,11 +69,18 @@ public class CarrinhoController {
 
     @GetMapping("/finalizar")
     public String finalizar(HttpSession session, Model model) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+
         List<Jogo> carrinho = getCarrinho(session);
 
         double total = 0;
         for (Jogo j : carrinho) {
             total += j.getPreco();
+            bibliotecaDAO.adicionarJogo(usuario.getId(), j.getId());
         }
 
         model.addAttribute("total", total);
