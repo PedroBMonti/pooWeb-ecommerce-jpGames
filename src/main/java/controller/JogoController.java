@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/jogos")
 public class JogoController {
@@ -55,6 +57,22 @@ public class JogoController {
         return "redirect:/home";
     }
 
+    @GetMapping("/detalhes")
+    public String detalhes(@RequestParam("id") int id, Model model) {
+        Jogo jogo = jogoDAO.buscarPorId(id);
+
+        if (jogo == null) {
+            return "redirect:/home";
+        }
+
+        List<Jogo> similares = jogoDAO.buscarPorCategoria(jogo.getCategoriaId(), jogo.getId());
+
+        model.addAttribute("jogo", jogo);
+        model.addAttribute("similares", similares);
+
+        return "detalhes";
+    }
+
     @PostMapping("/salvar")
     public String salvarJogo(@RequestParam(value = "id", defaultValue = "0") int id,
                              @RequestParam("titulo") String titulo,
@@ -62,13 +80,26 @@ public class JogoController {
                              @RequestParam("preco") double preco,
                              @RequestParam("categoriaId") int categoriaId,
                              @RequestParam("urlImagem") String urlImagem,
+                             @RequestParam("desenvolvedora") String desenvolvedora,
+                             @RequestParam("requisitosMinimos") String requisitosMinimos,
+                             @RequestParam("requisitosRecomendados") String requisitosRecomendados,
                              HttpSession session) {
 
         if (!isAdmin(session)) {
             return "redirect:/login";
         }
 
-        Jogo jogo = new Jogo(id, titulo, descricao, preco, categoriaId, urlImagem);
+        Jogo jogo = new Jogo(
+                id,
+                titulo,
+                descricao,
+                preco,
+                categoriaId,
+                urlImagem,
+                desenvolvedora,
+                requisitosMinimos,
+                requisitosRecomendados
+        );
 
         if (id > 0) {
             jogoDAO.atualizar(jogo);

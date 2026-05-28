@@ -51,6 +51,16 @@
             <input type="text" name="urlImagem" placeholder="Ex: img/nome.png"
                    value="<%= jogoEdicao != null ? jogoEdicao.getUrlImagem() : "" %>" required>
 
+            <label>Desenvolvedora</label>
+            <input type="text" name="desenvolvedora" placeholder="Ex: Arrowhead Game Studios"
+                   value="<%= jogoEdicao != null && jogoEdicao.getDesenvolvedora() != null ? jogoEdicao.getDesenvolvedora() : "" %>" required>
+
+            <label>Requisitos mínimos</label>
+            <textarea name="requisitosMinimos" placeholder="Ex: Windows 10, Intel Core i5, 8 GB RAM..." rows="4" required><%= jogoEdicao != null && jogoEdicao.getRequisitosMinimos() != null ? jogoEdicao.getRequisitosMinimos() : "" %></textarea>
+
+            <label>Requisitos recomendados</label>
+            <textarea name="requisitosRecomendados" placeholder="Ex: Windows 11, Intel Core i7, 16 GB RAM..." rows="4" required><%= jogoEdicao != null && jogoEdicao.getRequisitosRecomendados() != null ? jogoEdicao.getRequisitosRecomendados() : "" %></textarea>
+
             <label>Categoria</label>
             <select name="categoriaId" required>
                 <option value="">Selecione uma categoria</option>
