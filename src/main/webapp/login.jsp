@@ -19,8 +19,8 @@
 <div class="container">
 
     <div class="hero">
-        <h1>Acesso Administrativo</h1>
-        <p>Entre com tua conta de administrador para gerenciar jogos e categorias.</p>
+        <h1>Entrar na JpGames</h1>
+        <p>Acesse tua conta para comprar jogos, gerenciar tua biblioteca ou administrar a loja.</p>
     </div>
 
     <div class="form-card">
@@ -28,7 +28,7 @@
 
         <form action="<%= request.getContextPath() %>/login" method="post">
             <label>Email</label>
-            <input type="email" name="email" placeholder="proftop@algo.com" required>
+            <input type="email" name="email" placeholder="seuemail@email.com" required>
 
             <label>Senha</label>
             <input type="password" name="senha" placeholder="Digite sua senha" required>
@@ -44,6 +44,13 @@
         <%
             }
         %>
+
+        <p>
+            Não tem conta?
+            <a href="<%= request.getContextPath() %>/usuarios/cadastro" style="color: #66c0f4; text-decoration: none;">
+                Criar conta
+            </a>
+        </p>
     </div>
 
 </div>
