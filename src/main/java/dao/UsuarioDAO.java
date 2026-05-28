@@ -83,4 +83,20 @@ public class UsuarioDAO {
 
         return null;
     }
+
+    public void atualizarFoto(int id, String fotoUrl) {
+        String sql = "UPDATE usuario SET foto_url = ? WHERE id = ?";
+
+        try (Connection conn = ConexaoDB.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, fotoUrl);
+            stmt.setInt(2, id);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar foto do usuário: " + e.getMessage(), e);
+        }
+    }
 }

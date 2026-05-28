@@ -43,6 +43,20 @@
             <p><strong>Nome:</strong> <%= usuario.getNome() %></p>
             <p><strong>Email:</strong> <%= usuario.getEmail() %></p>
 
+            <form action="<%= request.getContextPath() %>/minha-conta/foto" method="post" class="avatar-form">
+                <label>Alterar foto de perfil</label>
+
+                <select name="fotoUrl" required>
+                    <option value="">Escolha um avatar</option>
+                    <option value="img/avatar1.png">Avatar 1</option>
+                    <option value="img/avatar2.png">Avatar 2</option>
+                    <option value="img/avatar3.png">Avatar 3</option>
+                </select>
+
+                <button type="submit" class="btn-cadastro btn-comprar">
+                    Salvar Foto
+                </button>
+            </form>
         </div>
     </div>
 

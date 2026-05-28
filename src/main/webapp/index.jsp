@@ -6,6 +6,7 @@
 <%
     Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
     boolean admin = usuarioLogado != null && "admin".equals(usuarioLogado.getPerfil());
+    List<Integer> jogosComprados = (List<Integer>) request.getAttribute("jogosComprados");
 %>
 
 <html>
@@ -58,6 +59,7 @@
 
             if (jogos != null && !jogos.isEmpty()) {
                 for (Jogo j : jogos) {
+                    boolean comprado = jogosComprados != null && jogosComprados.contains(j.getId());
         %>
         <div class="card">
 
@@ -77,9 +79,13 @@
             </a>
 
             <div class="card-content">
+                <% if (comprado) { %>
+                <span class="badge-biblioteca">Na sua biblioteca</span>
+                <% } else { %>
                 <a href="<%= request.getContextPath() %>/carrinho/adicionar?id=<%= j.getId() %>" class="btn-cadastro btn-comprar">
                     Adicionar ao Carrinho
                 </a>
+                <% } %>
 
                 <% if (admin) { %>
                 <div class="acoes">

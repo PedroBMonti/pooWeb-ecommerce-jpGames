@@ -26,6 +26,50 @@ public class BibliotecaDAO {
         }
     }
 
+    public boolean usuarioPossuiJogo(int usuarioId, int jogoId) {
+        String sql = "SELECT COUNT(*) FROM biblioteca WHERE usuario_id = ? AND jogo_id = ?";
+
+        try (Connection conn = ConexaoDB.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, usuarioId);
+            stmt.setInt(2, jogoId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao verificar biblioteca: " + e.getMessage(), e);
+        }
+
+        return false;
+    }
+
+    public List<Integer> listarIdsJogosDoUsuario(int usuarioId) {
+        List<Integer> ids = new ArrayList<>();
+        String sql = "SELECT jogo_id FROM biblioteca WHERE usuario_id = ?";
+
+        try (Connection conn = ConexaoDB.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, usuarioId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                ids.add(rs.getInt("jogo_id"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao listar jogos comprados: " + e.getMessage(), e);
+        }
+
+        return ids;
+    }
+
     public List<Jogo> listarJogosDoUsuario(int usuarioId) {
         List<Jogo> jogos = new ArrayList<>();
 

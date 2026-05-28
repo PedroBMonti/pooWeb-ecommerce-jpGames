@@ -38,8 +38,13 @@
             <label>Senha</label>
             <input type="password" name="senha" placeholder="Crie uma senha" required>
 
-            <label>URL da Foto</label>
-            <input type="text" name="fotoUrl" placeholder="Ex: img/avatar.png" required>
+            <label>Foto de Perfil</label>
+            <select name="fotoUrl" required>
+                <option value="">Escolha um avatar</option>
+                <option value="img/avatar1.png">Avatar 1</option>
+                <option value="img/avatar2.png">Avatar 2</option>
+                <option value="img/avatar3.png">Avatar 3</option>
+            </select>
 
             <div class="cart-actions">
                 <button type="submit" class="btn-cadastro btn-comprar">

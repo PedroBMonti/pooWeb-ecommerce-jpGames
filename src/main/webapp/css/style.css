@@ -501,3 +501,34 @@ body {
     color: #c7d5e0;
     font-size: 16px;
 }
+
+.badge-biblioteca {
+    display: inline-block;
+    background: #2a475e;
+    color: #b8f064;
+    border: 1px solid #5c7e10;
+    padding: 10px 14px;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.avatar-form {
+    margin-top: 18px;
+}
+
+.avatar-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #c7d5e0;
+}
+
+.avatar-form select {
+    background: #0e141b;
+    color: #ffffff;
+    border: 1px solid #2a475e;
+    padding: 10px;
+    border-radius: 3px;
+    margin-right: 10px;
+}

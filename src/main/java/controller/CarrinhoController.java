@@ -80,9 +80,11 @@ public class CarrinhoController {
         double total = 0;
         for (Jogo j : carrinho) {
             total += j.getPreco();
-            bibliotecaDAO.adicionarJogo(usuario.getId(), j.getId());
-        }
 
+            if (!bibliotecaDAO.usuarioPossuiJogo(usuario.getId(), j.getId())) {
+                bibliotecaDAO.adicionarJogo(usuario.getId(), j.getId());
+            }
+        }
         model.addAttribute("total", total);
         session.removeAttribute("carrinho");
 
