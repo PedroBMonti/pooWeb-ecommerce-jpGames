@@ -3,28 +3,50 @@
 <html>
 <head>
     <title>Login - JpGames</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
 
-<h2>Login JpGames</h2>
+<div class="header">
+    <a href="<%= request.getContextPath() %>/home" class="logo">JpGames</a>
 
-<form action="<%= request.getContextPath() %>/login" method="post">
-    <input type="email" name="email" placeholder="Email" required><br><br>
-    <input type="password" name="senha" placeholder="Senha" required><br><br>
-    <button type="submit">Entrar</button>
-</form>
+    <div class="nav">
+        <a href="<%= request.getContextPath() %>/home">Loja</a>
+        <a href="<%= request.getContextPath() %>/carrinho">Carrinho</a>
+    </div>
+</div>
 
-<%
-    String erro = (String) request.getAttribute("erro");
-    if (erro != null) {
-%>
-<p style="color: red;"><%= erro %></p>
-<%
-    }
-%>
+<div class="container">
 
-<br>
-<a href="<%= request.getContextPath() %>/home">Voltar para início</a>
+    <div class="hero">
+        <h1>Acesso Administrativo</h1>
+        <p>Entre com tua conta de administrador para gerenciar jogos e categorias.</p>
+    </div>
+
+    <div class="form-card">
+        <h2>Login</h2>
+
+        <form action="<%= request.getContextPath() %>/login" method="post">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="admin@jpgames.com" required>
+
+            <label>Senha</label>
+            <input type="password" name="senha" placeholder="Digite sua senha" required>
+
+            <button type="submit" class="btn-cadastro btn-login">Entrar</button>
+        </form>
+
+        <%
+            String erro = (String) request.getAttribute("erro");
+            if (erro != null) {
+        %>
+        <p class="erro"><%= erro %></p>
+        <%
+            }
+        %>
+    </div>
+
+</div>
 
 </body>
 </html>

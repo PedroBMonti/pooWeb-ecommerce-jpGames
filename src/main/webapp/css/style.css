@@ -282,3 +282,48 @@ body {
     font-size: 24px;
     font-weight: bold;
 }
+
+.form-card {
+    background: #16202d;
+    border: 1px solid #2a475e;
+    border-radius: 4px;
+    padding: 24px;
+    margin-top: 24px;
+    max-width: 420px;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.18);
+}
+
+.form-card h2 {
+    color: #ffffff;
+    margin-top: 0;
+}
+
+.form-card label {
+    display: block;
+    margin: 14px 0 6px;
+    color: #c7d5e0;
+}
+
+.form-card input,
+.form-card textarea,
+.form-card select {
+    width: 100%;
+    background: #0e141b;
+    color: #ffffff;
+    border: 1px solid #2a475e;
+    padding: 10px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+}
+
+.form-card input:focus,
+.form-card textarea:focus,
+.form-card select:focus {
+    outline: none;
+    border-color: #66c0f4;
+}
+
+.erro {
+    color: #ff6961;
+    margin-top: 12px;
+}
