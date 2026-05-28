@@ -8,76 +8,101 @@
 
 <html>
 <head>
-    <title>Gerenciar Categorias</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        table { width: 50%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
-        th { background-color: #f4f4f4; }
-        .acoes a { margin-right: 10px; text-decoration: none; color: #007bff; }
-        .acoes a.excluir { color: red; }
-        .form-container { margin-bottom: 30px; padding: 15px; border: 1px solid #ddd; width: 50%; border-radius: 5px; }
-    </style>
+    <title>Gerenciar Categorias - JpGames</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
 
-<h1>Gerenciamento de Categorias</h1>
+<div class="header">
+    <a href="<%= request.getContextPath() %>/home" class="logo">JpGames</a>
 
-<div class="form-container">
-    <h2><%= catEdicao != null ? "Editar Categoria" : "Nova Categoria" %></h2>
-
-    <form action="<%= request.getContextPath() %>/categorias/salvar" method="post">
-        <input type="hidden" name="id" value="<%= catEdicao != null ? catEdicao.getId() : 0 %>">
-
-        <label>Nome da Categoria:</label><br>
-        <input type="text" name="nome" placeholder="Ex: RPG, Ação..."
-               value="<%= catEdicao != null ? catEdicao.getNome() : "" %>" required>
-
-        <button type="submit"><%= catEdicao != null ? "Atualizar" : "Salvar" %></button>
-
-        <% if (catEdicao != null) { %>
-        <a href="<%= request.getContextPath() %>/categorias" style="margin-left: 10px;">Cancelar Edição</a>
-        <% } %>
-    </form>
+    <div class="nav">
+        <a href="<%= request.getContextPath() %>/home">Loja</a>
+        <a href="<%= request.getContextPath() %>/jogos">Jogos</a>
+        <a href="<%= request.getContextPath() %>/carrinho">Carrinho</a>
+    </div>
 </div>
 
-<hr>
+<div class="container">
 
-<h2>Categorias Cadastradas</h2>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Ações</th>
-    </tr>
-    <%
-        List<Categoria> categorias = (List<Categoria>) request.getAttribute("categorias");
-        if (categorias != null && !categorias.isEmpty()) {
-            for (Categoria c : categorias) {
-    %>
-    <tr>
-        <td><%= c.getId() %></td>
-        <td><%= c.getNome() %></td>
-        <td class="acoes">
-            <a href="<%= request.getContextPath() %>/categorias/editar?id=<%= c.getId() %>">Editar</a>
-            <a href="<%= request.getContextPath() %>/categorias/deletar?id=<%= c.getId() %>" class="excluir"
-               onclick="return confirm('Tem certeza? Se houver jogos vinculados a esta categoria, o banco bloqueará a exclusão!');">Excluir</a>
-        </td>
-    </tr>
-    <%
-        }
-    } else {
-    %>
-    <tr>
-        <td colspan="3">Nenhuma categoria cadastrada.</td>
-    </tr>
-    <%
-        }
-    %>
-</table>
+    <div class="hero">
+        <h1>Gerenciamento de Categorias</h1>
+        <p>Cadastre, edite e organize os gêneros usados no catálogo da loja.</p>
+    </div>
 
-<br><br>
-<a href="<%= request.getContextPath() %>/home">Voltar para a Página Inicial</a>
+    <div class="form-card form-large">
+        <h2><%= catEdicao != null ? "Editar Categoria" : "Nova Categoria" %></h2>
+
+        <form action="<%= request.getContextPath() %>/categorias/salvar" method="post">
+            <input type="hidden" name="id" value="<%= catEdicao != null ? catEdicao.getId() : 0 %>">
+
+            <label>Nome da Categoria</label>
+            <input type="text" name="nome" placeholder="Ex: RPG, Ação..."
+                   value="<%= catEdicao != null ? catEdicao.getNome() : "" %>" required>
+
+            <div class="cart-actions">
+                <button type="submit" class="btn-cadastro btn-comprar">
+                    <%= catEdicao != null ? "Atualizar" : "Salvar" %>
+                </button>
+
+                <% if (catEdicao != null) { %>
+                <a href="<%= request.getContextPath() %>/categorias" class="btn-cadastro btn-carrinho">
+                    Cancelar Edição
+                </a>
+                <% } %>
+            </div>
+        </form>
+    </div>
+
+    <h2 class="section-title">Categorias Cadastradas</h2>
+
+    <div class="cart-box">
+        <table class="cart-table">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Ações</th>
+            </tr>
+
+            <%
+                List<Categoria> categorias = (List<Categoria>) request.getAttribute("categorias");
+
+                if (categorias != null && !categorias.isEmpty()) {
+                    for (Categoria c : categorias) {
+            %>
+            <tr>
+                <td><%= c.getId() %></td>
+                <td><%= c.getNome() %></td>
+                <td class="acoes">
+                    <a href="<%= request.getContextPath() %>/categorias/editar?id=<%= c.getId() %>">Editar</a>
+
+                    <a href="<%= request.getContextPath() %>/categorias/deletar?id=<%= c.getId() %>"
+                       class="excluir"
+                       onclick="return confirm('Tem certeza? Se houver jogos vinculados a esta categoria, o banco bloqueará a exclusão.');">
+                        Excluir
+                    </a>
+                </td>
+            </tr>
+            <%
+                }
+            } else {
+            %>
+            <tr>
+                <td colspan="3">Nenhuma categoria cadastrada.</td>
+            </tr>
+            <%
+                }
+            %>
+        </table>
+    </div>
+
+    <div class="cart-actions">
+        <a href="<%= request.getContextPath() %>/home" class="btn-cadastro btn-carrinho">
+            Voltar para a loja
+        </a>
+    </div>
+
+</div>
 
 </body>
 </html>
