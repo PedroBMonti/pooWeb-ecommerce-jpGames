@@ -76,7 +76,6 @@
 
                 <div class="card-content">
                     <h3><%= j.getTitulo() %></h3>
-                    <p><%= j.getDescricao() %></p>
                     <p class="preco">Adquirido</p>
                 </div>
             </a>

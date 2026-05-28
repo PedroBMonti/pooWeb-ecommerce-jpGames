@@ -87,7 +87,6 @@
 
                 <div class="card-content">
                     <h3><%= s.getTitulo() %></h3>
-                    <p><%= s.getDescricao() %></p>
                     <p class="preco">R$ <%= s.getPreco() %></p>
                 </div>
             </a>
