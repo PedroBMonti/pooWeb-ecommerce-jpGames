@@ -37,6 +37,10 @@ public class CategoriaController {
 
         Categoria categoria = categoriaDAO.buscarPorId(id);
 
+        if (categoria == null) {
+            return "redirect:/categorias";
+        }
+
         model.addAttribute("categoria", categoria);
         model.addAttribute("categorias", categoriaDAO.listarTodas());
 

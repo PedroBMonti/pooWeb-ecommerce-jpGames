@@ -41,6 +41,10 @@ public class JogoController {
 
         Jogo jogo = jogoDAO.buscarPorId(id);
 
+        if (jogo == null) {
+            return "redirect:/home";
+        }
+
         model.addAttribute("jogo", jogo);
         model.addAttribute("categorias", categoriaDAO.listarTodas());
 
