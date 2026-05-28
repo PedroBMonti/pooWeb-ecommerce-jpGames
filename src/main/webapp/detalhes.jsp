@@ -27,25 +27,32 @@
 
     <% if (jogo != null) { %>
 
-    <div class="details-box">
+    <div class="details-header-box">
         <div class="details-image">
             <% if (jogo.getUrlImagem() != null && !jogo.getUrlImagem().isEmpty()) { %>
             <img src="<%= request.getContextPath() %>/<%= jogo.getUrlImagem() %>" alt="<%= jogo.getTitulo() %>">
             <% } %>
         </div>
 
-        <div class="details-info">
+        <div class="details-title-area">
             <h1><%= jogo.getTitulo() %></h1>
-            <p><%= jogo.getDescricao() %></p>
 
             <p class="preco">R$ <%= jogo.getPreco() %></p>
 
-            <p><strong>Desenvolvedora:</strong> <%= jogo.getDesenvolvedora() != null ? jogo.getDesenvolvedora() : "Não informada" %></p>
+            <p>
+                <strong>Desenvolvedora:</strong>
+                <%= jogo.getDesenvolvedora() != null ? jogo.getDesenvolvedora() : "Não informada" %>
+            </p>
 
             <a href="<%= request.getContextPath() %>/carrinho/adicionar?id=<%= jogo.getId() %>" class="btn-cadastro btn-comprar">
                 Adicionar ao Carrinho
             </a>
         </div>
+    </div>
+
+    <div class="game-summary-box">
+        <h2>Resumo do Jogo</h2>
+        <p><%= jogo.getDescricao() %></p>
     </div>
 
     <div class="requirements-box">
@@ -72,17 +79,21 @@
                 for (Jogo s : similares) {
         %>
         <div class="card">
-            <% if (s.getUrlImagem() != null && !s.getUrlImagem().isEmpty()) { %>
-            <img src="<%= request.getContextPath() %>/<%= s.getUrlImagem() %>" alt="<%= s.getTitulo() %>">
-            <% } %>
+            <a href="<%= request.getContextPath() %>/jogos/detalhes?id=<%= s.getId() %>" class="card-link">
+                <% if (s.getUrlImagem() != null && !s.getUrlImagem().isEmpty()) { %>
+                <img src="<%= request.getContextPath() %>/<%= s.getUrlImagem() %>" alt="<%= s.getTitulo() %>">
+                <% } %>
+
+                <div class="card-content">
+                    <h3><%= s.getTitulo() %></h3>
+                    <p><%= s.getDescricao() %></p>
+                    <p class="preco">R$ <%= s.getPreco() %></p>
+                </div>
+            </a>
 
             <div class="card-content">
-                <h3><%= s.getTitulo() %></h3>
-                <p><%= s.getDescricao() %></p>
-                <p class="preco">R$ <%= s.getPreco() %></p>
-
-                <a href="<%= request.getContextPath() %>/jogos/detalhes?id=<%= s.getId() %>" class="btn-cadastro btn-admin">
-                    Ver Detalhes
+                <a href="<%= request.getContextPath() %>/carrinho/adicionar?id=<%= s.getId() %>" class="btn-cadastro btn-comprar">
+                    Adicionar ao Carrinho
                 </a>
             </div>
         </div>
