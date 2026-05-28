@@ -1,5 +1,6 @@
 package controller;
 
+import dao.BibliotecaDAO;
 import dao.CategoriaDAO;
 import dao.JogoDAO;
 import jakarta.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ public class JogoController {
 
     private JogoDAO jogoDAO = new JogoDAO();
     private CategoriaDAO categoriaDAO = new CategoriaDAO();
+    private BibliotecaDAO bibliotecaDAO = new BibliotecaDAO();
 
     private boolean isAdmin(HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
@@ -62,17 +64,25 @@ public class JogoController {
     }
 
     @GetMapping("/detalhes")
-    public String detalhes(@RequestParam("id") int id, Model model) {
+    public String detalhes(@RequestParam("id") int id, Model model, HttpSession session) {
         Jogo jogo = jogoDAO.buscarPorId(id);
 
         if (jogo == null) {
             return "redirect:/home";
         }
 
+        boolean comprado = false;
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+
+        if (usuario != null) {
+            comprado = bibliotecaDAO.usuarioPossuiJogo(usuario.getId(), jogo.getId());
+        }
+
         List<Jogo> similares = jogoDAO.buscarPorCategoria(jogo.getCategoriaId(), jogo.getId());
 
         model.addAttribute("jogo", jogo);
         model.addAttribute("similares", similares);
+        model.addAttribute("comprado", comprado);
 
         return "detalhes";
     }

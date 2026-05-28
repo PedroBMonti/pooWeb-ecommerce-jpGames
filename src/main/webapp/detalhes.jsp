@@ -5,6 +5,7 @@
 <%
     Jogo jogo = (Jogo) request.getAttribute("jogo");
     List<Jogo> similares = (List<Jogo>) request.getAttribute("similares");
+    Boolean comprado = (Boolean) request.getAttribute("comprado");
 %>
 
 <html>
@@ -45,9 +46,13 @@
                 <%= jogo.getDesenvolvedora() != null ? jogo.getDesenvolvedora() : "Não informada" %>
             </p>
 
+            <% if (comprado != null && comprado) { %>
+            <span class="badge-biblioteca">Na sua biblioteca</span>
+            <% } else { %>
             <a href="<%= request.getContextPath() %>/carrinho/adicionar?id=<%= jogo.getId() %>" class="btn-cadastro btn-comprar">
                 Adicionar ao Carrinho
             </a>
+            <% } %>
         </div>
     </div>
 

@@ -66,6 +66,28 @@ public class JogoDAO {
         return jogos;
     }
 
+    public List<Jogo> listarPorCategoria(int categoriaId) {
+        List<Jogo> jogos = new ArrayList<>();
+        String sql = "SELECT * FROM jogo WHERE categoria_id = ? ORDER BY id";
+
+        try (Connection conn = ConexaoDB.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, categoriaId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                jogos.add(map(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao listar jogos por categoria: " + e.getMessage(), e);
+        }
+
+        return jogos;
+    }
+
     public Jogo buscarPorId(int id) {
         String sql = "SELECT * FROM jogo WHERE id = ?";
 
