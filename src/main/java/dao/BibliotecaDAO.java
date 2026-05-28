@@ -29,13 +29,11 @@ public class BibliotecaDAO {
     public List<Jogo> listarJogosDoUsuario(int usuarioId) {
         List<Jogo> jogos = new ArrayList<>();
 
-        String sql = """
-                SELECT j.*
-                FROM biblioteca b
-                INNER JOIN jogo j ON b.jogo_id = j.id
-                WHERE b.usuario_id = ?
-                ORDER BY b.data_compra DESC
-                """;
+        String sql = "SELECT j.* " +
+                "FROM biblioteca b " +
+                "INNER JOIN jogo j ON b.jogo_id = j.id " +
+                "WHERE b.usuario_id = ? " +
+                "ORDER BY b.data_compra DESC";
 
         try (Connection conn = ConexaoDB.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

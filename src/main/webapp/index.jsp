@@ -23,6 +23,7 @@
 
         <% if (usuarioLogado != null) { %>
         <span>Logado como: <span class="admin-label"><%= usuarioLogado.getNome() %></span></span>
+        <a href="<%= request.getContextPath() %>/minha-conta">Minha Conta</a>
         <a href="<%= request.getContextPath() %>/logout">Sair</a>
         <% } else { %>
         <a href="<%= request.getContextPath() %>/login">Login</a>
@@ -71,7 +72,6 @@
 
                 <div class="card-content">
                     <h3><%= j.getTitulo() %></h3>
-
                     <p class="preco">R$ <%= j.getPreco() %></p>
                 </div>
             </a>
