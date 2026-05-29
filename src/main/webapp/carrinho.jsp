@@ -15,7 +15,7 @@
 
     <div class="nav">
         <a href="<%= request.getContextPath() %>/home">Loja</a>
-        <a href="<%= request.getContextPath() %>/carrinho">Carrinho</a>
+        <a href="<%= request.getContextPath() %>/login">Login</a>
     </div>
 </div>
 

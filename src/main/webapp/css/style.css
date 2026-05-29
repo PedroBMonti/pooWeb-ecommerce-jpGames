@@ -532,3 +532,51 @@ body {
     border-radius: 3px;
     margin-right: 10px;
 }
+.filter-box {
+    background: #16202d;
+    border: 1px solid #2a475e;
+    border-radius: 4px;
+    padding: 18px;
+    margin-top: 24px;
+    max-width: 760px;
+}
+
+.filter-box form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.filter-box label {
+    color: #ffffff;
+    font-weight: bold;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.filter-box select {
+    background: #0e141b;
+    color: #ffffff;
+    border: 1px solid #2a475e;
+    padding: 0 14px;
+    border-radius: 3px;
+    min-width: 220px;
+    height: 40px;
+    font-size: 14px;
+}
+
+.filter-box select:focus {
+    outline: none;
+    border-color: #66c0f4;
+}
+
+.filter-box .btn-cadastro {
+    height: 40px;
+    padding: 0 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}

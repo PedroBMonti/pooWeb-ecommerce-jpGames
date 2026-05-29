@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.Jogo" %>
 <%@ page import="model.Usuario" %>
+<%@ page import="model.Categoria" %>
 
 <%
     Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
@@ -50,6 +51,38 @@
             Gerenciar Categorias
         </a>
         <% } %>
+    </div>
+
+    <div class="filter-box">
+        <form action="<%= request.getContextPath() %>/home" method="get">
+            <label>Filtrar por gênero</label>
+
+            <select name="categoriaId">
+                <option value="">Todos os gêneros</option>
+
+                <%
+                    List<Categoria> categorias = (List<Categoria>) request.getAttribute("categorias");
+                    Integer categoriaSelecionada = (Integer) request.getAttribute("categoriaSelecionada");
+
+                    if (categorias != null) {
+                        for (Categoria c : categorias) {
+                            boolean selecionada = categoriaSelecionada != null && categoriaSelecionada == c.getId();
+                %>
+                <option value="<%= c.getId() %>" <%= selecionada ? "selected" : "" %>>
+                    <%= c.getNome() %>
+                </option>
+                <%
+                        }
+                    }
+                %>
+            </select>
+
+            <button type="submit" class="btn-cadastro btn-comprar">Filtrar</button>
+
+            <a href="<%= request.getContextPath() %>/home" class="btn-cadastro btn-admin">
+                Limpar
+            </a>
+        </form>
     </div>
 
     <h2 class="section-title">Jogos Disponíveis</h2>
@@ -101,7 +134,7 @@
             }
         } else {
         %>
-        <p class="empty-message">Nenhum jogo cadastrado.</p>
+        <p class="empty-message">Nenhum jogo cadastrado para este gênero.</p>
         <%
             }
         %>
