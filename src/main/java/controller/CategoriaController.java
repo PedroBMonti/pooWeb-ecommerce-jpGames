@@ -58,17 +58,12 @@ public class CategoriaController {
     }
 
     @PostMapping("/salvar")
-    public String salvar(@RequestParam(value = "id", defaultValue = "0") int id,
-                         @RequestParam("nome") String nome,
-                         HttpSession session) {
-
+    public String salvar(Categoria categoria, HttpSession session) {
         if (!isAdmin(session)) {
             return "redirect:/login";
         }
 
-        Categoria categoria = new Categoria(id, nome);
-
-        if (id > 0) {
+        if (categoria.getId() > 0) {
             categoriaDAO.atualizar(categoria);
         } else {
             categoriaDAO.cadastrar(categoria);

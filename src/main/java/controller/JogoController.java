@@ -88,34 +88,12 @@ public class JogoController {
     }
 
     @PostMapping("/salvar")
-    public String salvarJogo(@RequestParam(value = "id", defaultValue = "0") int id,
-                             @RequestParam("titulo") String titulo,
-                             @RequestParam("descricao") String descricao,
-                             @RequestParam("preco") double preco,
-                             @RequestParam("categoriaId") int categoriaId,
-                             @RequestParam("urlImagem") String urlImagem,
-                             @RequestParam("desenvolvedora") String desenvolvedora,
-                             @RequestParam("requisitosMinimos") String requisitosMinimos,
-                             @RequestParam("requisitosRecomendados") String requisitosRecomendados,
-                             HttpSession session) {
-
+    public String salvarJogo(Jogo jogo, HttpSession session) {
         if (!isAdmin(session)) {
             return "redirect:/login";
         }
 
-        Jogo jogo = new Jogo(
-                id,
-                titulo,
-                descricao,
-                preco,
-                categoriaId,
-                urlImagem,
-                desenvolvedora,
-                requisitosMinimos,
-                requisitosRecomendados
-        );
-
-        if (id > 0) {
+        if (jogo.getId() > 0) {
             jogoDAO.atualizar(jogo);
         } else {
             jogoDAO.cadastrar(jogo);

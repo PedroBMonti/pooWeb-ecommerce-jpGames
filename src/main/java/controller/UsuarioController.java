@@ -17,18 +17,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/salvar")
-    public String salvar(@RequestParam("nome") String nome,
-                         @RequestParam("apelido") String apelido,
-                         @RequestParam("email") String email,
-                         @RequestParam("senha") String senha,
-                         @RequestParam("fotoUrl") String fotoUrl) {
-
-        Usuario usuario = new Usuario();
-        usuario.setNome(nome);
-        usuario.setApelido(apelido);
-        usuario.setEmail(email);
-        usuario.setSenha(senha);
-        usuario.setFotoUrl(fotoUrl);
+    public String salvar(Usuario usuario) {
         usuario.setPerfil("cliente");
 
         usuarioDAO.cadastrarCliente(usuario);
