@@ -1,3 +1,11 @@
+## Autor
+
+**João Pedro Bohrer Monti**
+
+Curso: Sistemas para Internet
+Disciplina: POO Web 1
+Universidade Federal de Santa Maria - UFSM
+
 # JpGames
 
 Projeto desenvolvido para a disciplina de **POO Web 1**.
