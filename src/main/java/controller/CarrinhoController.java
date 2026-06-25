@@ -1,33 +1,27 @@
 package controller;
 
-import dao.BibliotecaDAO;
-import dao.JogoDAO;
 import jakarta.servlet.http.HttpSession;
 import model.Jogo;
 import model.Usuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import service.CarrinhoService;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Controller
 @RequestMapping("/carrinho")
 public class CarrinhoController {
 
-    private JogoDAO jogoDAO = new JogoDAO();
-    private BibliotecaDAO bibliotecaDAO = new BibliotecaDAO();
+    private CarrinhoService carrinhoService = new CarrinhoService();
 
     @GetMapping
     public String verCarrinho(HttpSession session, Model model) {
         List<Jogo> carrinho = getCarrinho(session);
 
-        double total = 0;
-        for (Jogo j : carrinho) {
-            total += j.getPreco();
-        }
+        double total = carrinhoService.calcularTotal(carrinho);
 
         model.addAttribute("carrinho", carrinho);
         model.addAttribute("total", total);
@@ -37,13 +31,11 @@ public class CarrinhoController {
 
     @GetMapping("/adicionar")
     public String adicionar(@RequestParam("id") int id, HttpSession session) {
-        Jogo jogo = jogoDAO.buscarPorId(id);
+        List<Jogo> carrinho = getCarrinho(session);
 
-        if (jogo != null) {
-            List<Jogo> carrinho = getCarrinho(session);
-            carrinho.add(jogo);
-            session.setAttribute("carrinho", carrinho);
-        }
+        carrinhoService.adicionarJogoNoCarrinho(id, carrinho);
+
+        session.setAttribute("carrinho", carrinho);
 
         return "redirect:/home";
     }
@@ -52,15 +44,7 @@ public class CarrinhoController {
     public String remover(@RequestParam("id") int id, HttpSession session) {
         List<Jogo> carrinho = getCarrinho(session);
 
-        Iterator<Jogo> it = carrinho.iterator();
-        while (it.hasNext()) {
-            Jogo j = it.next();
-
-            if (j.getId() == id) {
-                it.remove();
-                break;
-            }
-        }
+        carrinhoService.removerJogoDoCarrinho(id, carrinho);
 
         session.setAttribute("carrinho", carrinho);
 
@@ -70,22 +54,24 @@ public class CarrinhoController {
     @GetMapping("/finalizar")
     public String finalizar(HttpSession session, Model model) {
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        List<Jogo> carrinho = getCarrinho(session);
 
-        if (usuario == null) {
+        CarrinhoService.ResultadoFinalizacao resultado =
+                carrinhoService.finalizarCompra(usuario, carrinho);
+
+        if (resultado.isPrecisaLogin()) {
             return "redirect:/login";
         }
 
-        List<Jogo> carrinho = getCarrinho(session);
+        if (!resultado.isFinalizada()) {
+            model.addAttribute("carrinho", carrinho);
+            model.addAttribute("total", resultado.getTotal());
+            model.addAttribute("erro", resultado.getMensagem());
 
-        double total = 0;
-        for (Jogo j : carrinho) {
-            total += j.getPreco();
-
-            if (!bibliotecaDAO.usuarioPossuiJogo(usuario.getId(), j.getId())) {
-                bibliotecaDAO.adicionarJogo(usuario.getId(), j.getId());
-            }
+            return "carrinho";
         }
-        model.addAttribute("total", total);
+
+        model.addAttribute("total", resultado.getTotal());
         session.removeAttribute("carrinho");
 
         return "checkout";
