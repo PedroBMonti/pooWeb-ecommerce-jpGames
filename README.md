@@ -244,14 +244,8 @@ Senha: sua_senha
 
 ### 4. Rodar o projeto
 
-O projeto foi desenvolvido para rodar em servidor Java Web, como o **WildFly**.
-
-Após configurar o servidor, faça o deploy da aplicação e acesse pelo navegador:
-
-```text
-http://localhost:8080/jpGames
-```
-
+O projeto foi desenvolvido para rodar em um servidor Java Web, como o WildFly.
+cuidado ao adicionar artefato como o war:explode para que ele rode e suba o sistema online, de acordo com o que ja foi passado pelo professor em sala de aula para o projeto da disciplina.
 ---
 
 ## Usuários de teste
