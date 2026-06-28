@@ -29,7 +29,7 @@ https://github.com/PedroBMonti/pooWeb-ecommerce-jpGames
 
 ### Vídeo de apresentação
 
-https://drive.google.com/file/d/1XthtAtGPhXi59DjdC5j2IK3tFmu9ZsYC/view?usp=sharing
+https://drive.google.com/file/d/1lh-nWoUeCVjW8flVnncssCe6_JW5eMPQ/view?usp=sharing
 
 ---
 
